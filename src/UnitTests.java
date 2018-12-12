@@ -116,8 +116,9 @@ public class UnitTests {
       
       testIHD.tearDown();
 
+       System.out.println("Test session ended.");
       
-   }
+   } // end of run
               
 
   
