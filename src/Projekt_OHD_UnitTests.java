@@ -233,15 +233,15 @@ public class Projekt_OHD_UnitTests {
 
         final boolean expected [] = {false, false, false , false ,false};
       
-        final boolean actual [] = testOHD.dataIAD1;
+        final boolean actual [] = testOHD.getOutput();
     
         if(verbose == true) {
-            textOutput.add(expected); 
-            textOutput.add(actual);
+            textOutput.add(Arrays.toString(expected)); 
+             textOutput.add(Arrays.toString(actual)); 
             printVerbose();
         }
 
-        if(expected == actual){
+        if(Arrays.equals(actual, actual)){
             
       
              return true;

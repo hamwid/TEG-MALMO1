@@ -30,7 +30,6 @@ public class UnitTests {
    
        Projekt_IHD_UnitTests testIHD = new Projekt_IHD_UnitTests();
         
-       Projekt_OHD_UnitTests testOHD = new Projekt_OHD_UnitTests();
        
              
       testIHD.setUp();
@@ -224,6 +223,19 @@ public class UnitTests {
       
       testOHD.tearDown();
       
+      
+              
+              
+      testOHD.setUp();
+       
+      if (testOHD.test_output_default_as_FFFFF() == true){
+      testPassed();
+      }else{
+      testFailed();
+      }
+      
+      testOHD.tearDown();         
+              
              
       testOHD.setUp();
        
