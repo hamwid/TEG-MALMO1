@@ -16,8 +16,15 @@ public class GitHolger {
      */
     public static void main(String[] args) {
     
-        UnitTests.run();
         
+        
+       UnitTests.run_IHD_UnitTests();
+        
+       UnitTests.run_IAD_UnitTests();
+        
+       UnitTests.run_OHD_UnitTests();
+        
+        System.out.println("Test session ended.");
         
     }
     

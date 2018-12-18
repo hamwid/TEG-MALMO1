@@ -6,12 +6,6 @@
 // - Ger som output en Array innehållande fem booleaner som kan vara true eller false oberoende av varandra
 
 
-// False, False
-// True, True
-// False , True
-// True, False
-
-
 
 
 import java.util.ArrayList;
@@ -27,7 +21,10 @@ public class Projekt_OHD_UnitTests {
     
     private OHD testOHD;
     
-    private IAD testIAD = new IAD();
+    private IAD tIAD_1;
+    private IAD tIAD_2;
+    private IAD tIAD_3;
+        
 
     
     // When this is set to true, test will give more information about the test executed
@@ -35,95 +32,62 @@ public class Projekt_OHD_UnitTests {
     
     private ArrayList textOutput;
     
-     boolean [][][] createTestMatrix(){
-     
-         int input[][][] = new int [5][5][5];
-         
-         boolean boolinput[][][] = new boolean [5][5][5];
 
-         int pop0 [][] = 
+     
+     boolean [][] createTestMatrix(){
+     
+ 
+         
+      
+
+         int input_int [][] = 
          {       
              {1,0,0,0,0},
              {0,1,0,0,0},
              {0,0,1,0,0},
              {0,0,0,1,0},
              {0,0,0,0,1},
-         };
-
-          int pop1 [][] =  
-         {       
+      
              {1,1,0,0,0},
              {0,1,1,0,0},
              {0,0,1,1,0},
              {0,0,0,1,1},
              {1,0,0,0,1},
-         };
-          int pop2 [][] = 
-         {       
+          
              {1,1,1,0,0},
              {0,1,1,1,0},
              {0,0,1,1,1},
              {1,0,0,1,1},
              {1,1,0,0,1},
-         };
-
-          int pop3 [][] =  
-         {       
+     
              {1,1,1,1,0},
              {0,1,1,1,1},
              {1,0,1,1,1},
              {1,1,0,1,1},
              {0,1,1,1,1},
-         };
-          
-         int pop4 [][] =  
-         {       
+      
              {1,1,1,1,1},
-             {0,0,0,0,0},
-             
-             {0,0,0,0,0},
-             {0,0,0,0,0},
-             {0,0,0,0,0},
+             {0,0,0,0,0}
+              
          };
+         
+          boolean bool_input[][] = new boolean [input_int.length][input_int[0].length];
 
-                   input[0] = pop0;
-                   input[1] = pop1;
-                   input[2] = pop2;
-                   input[3] = pop3;
-                   input[4] = pop4;
+         for (int i = 0; i < input_int.length; i++) {
+             for (int j = 0; j < input_int[0].length; j++) {
+                 if(input_int[i][j] == 1){
+                 bool_input[i][j] = true;
+                 }else{
+                 bool_input[i][j] = false;
+                 }
+                 
+                 
+             }
+         }
 
-//                for (int matrix = 0; matrix < 5; matrix++) {
-//                   System.out.println("-----------------------");
-//            
-//                for (int row = 0; row < 5; row++) {
-//                for (int col = 0; col < 5; col++) {
-//
-//                         System.out.print(input[matrix][row][col] + " ");
-//                        }
-//                     System.out.println();
-//                    }
-             
-//                }
-                   
-                   
-                for (int matrix = 0; matrix < 5; matrix++) {
-                  for (int row = 0; row < 5; row++) {
-                     for (int col = 0; col < 5; col++) {
-
-                         if(input[matrix][row][col] == 1){
-                             boolinput[matrix][row][col] = true;
-                         }else{
-                         boolinput[matrix][row][col] = false;
-                         } 
-                    
-                        }
-                    }   
-                }
-                   
-            return boolinput;
+       
+            return bool_input;
             }
-     
-
          
 
     
@@ -144,34 +108,92 @@ public class Projekt_OHD_UnitTests {
        if(verbose == true) { System.out.println("Testing: Projekt_testOHD");}
        textOutput = new ArrayList();
        testOHD = new OHD();
+       
+          tIAD_1 = new IAD();
+          tIAD_2 = new IAD();
+          tIAD_3 = new IAD();
+          
     }
 
     //@test
-    public boolean test_initialized(){
+    public boolean test_initialized() {
         
     if(verbose == true) { System.out.println("Running: test_initialized");}
     
-    boolean init = false;
+    ArrayList expected = new ArrayList();
     
-    testOHD.initialize(testIAD,testIAD,testIAD);
+    ArrayList actual = new ArrayList();
     
-    final boolean expected = true;
-      
-    final boolean actual = init;
-    
+     expected.add(false);
+     expected.add(false);
+     expected.add(false);
+     expected.add(false);
+     expected.add(false);
+     
+     boolean booleanexpected [] = {false, false, false, false, false};
+ 
+      expected.add(Arrays.toString(booleanexpected));
+   
+    // IAD1 expected to pass check of not null hence true
+     expected.add(true);
+     
+    // IAD2 expected to pass check of not null hence true
+     expected.add(true);
+     
+    // IAD3 expected to pass check of not null hence true
+     expected.add(true);
+     
+
+     boolean expectedOutput [] = testOHD.getOutput();
+     
+         for (int i = 0; i < expectedOutput.length; i++) {
+               actual.add(expectedOutput[i]);
+         }
+         
+        actual.add(Arrays.toString(booleanexpected));
+     
+     if(tIAD_1 != null && tIAD_2 != null && tIAD_3 != null ){
+     testOHD.initialize(tIAD_1, tIAD_2, tIAD_3);
+     
+     // Observe that no check is done on IAD1, IAD2 or IAD3 has run their initialize function
+     
+     // for this test the testdata is the expected values after initialize is called then accessed through getOutput()
+             
+     // a boolean of true is added for each valid IAD
+             actual.add(true);
+             actual.add(true);
+             actual.add(true);     
+     
+     }else{
+         
+         if(tIAD_1 == null){
+             System.out.println("tIAD_1 not initialized");
+         }
+         
+         if(tIAD_2 == null){
+             System.out.println("tIAD_2 not initialized");
+         }
+         
+         if(tIAD_3 == null){
+             System.out.println("tIAD_3 not initialized");
+         }
+         
+         return false;
+     }
+            
     if(verbose == true) {
-        textOutput.add(expected); 
-        textOutput.add(actual);
+        textOutput.add(expected.toString()); 
+        textOutput.add(actual.toString());
         printVerbose();
     }
-
-    if(expected == actual){
+   
+    if(expected.toString().equals(actual.toString())){
 
          return true;
          
     }
      else{
-          return false;
+         return false;
      }
 
    }
@@ -180,7 +202,7 @@ public class Projekt_OHD_UnitTests {
         
         if(verbose == true) { System.out.println("Running: test_execute");}
     
-         testOHD.initialize(testIAD,testIAD,testIAD);
+            testOHD.initialize(tIAD_1,tIAD_3,tIAD_2);
      
         boolean init = false;
     
@@ -220,7 +242,8 @@ public class Projekt_OHD_UnitTests {
         }
 
         if(expected == actual){
-
+            
+      
              return true;
 
         }
@@ -230,56 +253,56 @@ public class Projekt_OHD_UnitTests {
 
    }
     
-        public boolean test_output_independence_with_testMatrix(){
-        if(verbose == true) { System.out.println("Running: test_output_independence");}
+        public boolean test_output_independence_with_testMatrix_falsified_with_FFFFF(){
+        if(verbose == true) { System.out.println("Running: test_output_independence_with_testMatrix_falsified_with_FFFFF");}
     
 
-        final boolean expected  = true;
+        final boolean expected [] = {false, false, false , false, false};
         
-        boolean actual = false;
-
-         boolean test [];
-    
-
-       boolean input [][][] = createTestMatrix();
-        int n = 0;
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
-                   test = input[i][j];
-                   
-                   // System.out.println(Arrays.toString(test));
-                    
-                    actual = (test[0] == true || test[1] == false || test[2] == false || test[3] == false || test[4] == false);
+        boolean actual [] = new boolean [5];
         
+        boolean result = false;
 
-                    if(actual == true){
-                         n++;
-                    }
-  
+     boolean input [][] = createTestMatrix();
+
+            for (int i = 0; i < input.length; i++) {
+                
+                              actual = input[i];
+   
+                
+             if(verbose == true) {
+            
+            textOutput.add(Arrays.toString(expected)); 
+            textOutput.add(Arrays.toString(actual)); 
+            
+                            System.out.println("");
+
+            printVerbose();
+            
+            textOutput.clear();
+        }
+             
+       
+           
+    if ( actual[0] == false &&
+         actual[1] == false &&
+         actual[2] == false &&
+         actual[3] == false &&
+         actual[4] == false ){
+                    if(verbose == true) {    System.out.println("\u001B[32m true \u001B[00m"); }
+                    result = true;
+                }else{
+                    result = false;
+                    if(verbose == true) {   System.out.println("\u001B[31m false \u001B[00m"); }
                 }
+            
             }
 
-           // System.out.println("Actual: true, " + n + " times");
-            
+              System.out.println("");
     
-        if(verbose == true) {
-            
-            textOutput.add(expected); 
-            textOutput.add(actual);
-            
-           // textOutput.add(Arrays.toString(expected)); 
-          //  textOutput.add(Arrays.toString(actual));
-            printVerbose();
-        }
 
-        if(expected == actual){
 
-             return true;
-
-        }
-        else{
-             return false;
-        }
+return result;
 
    }
     
